@@ -30,6 +30,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Debug secret lengths
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python3 -c "import os; t=os.environ['TELEGRAM_BOT_TOKEN']; c=os.environ['TELEGRAM_CHAT_ID']; print(f'token len={len(t)} has_colon={\":\" in t} starts={t[:3]!r} ends={t[-3:]!r} stripped_eq={t==t.strip()}'); print(f'chat len={len(c)} value_repr={c!r}')"
+
       - name: Run bot
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
