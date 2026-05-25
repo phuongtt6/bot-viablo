@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "0 * * * *"  # every hour at minute 0 (UTC)
   workflow_dispatch:
+    inputs:
+      max_posts:
+        description: "Max posts to send this run"
+        required: false
+        default: "5"
 
 permissions:
   contents: write
@@ -34,7 +39,7 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          MAX_POSTS: "5"
+          MAX_POSTS: ${{ inputs.max_posts || '5' }}
         run: python viblo-telegram-bot.py
 
       - name: Commit updated sent.json
