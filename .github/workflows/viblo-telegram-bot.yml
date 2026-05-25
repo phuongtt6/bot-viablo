@@ -2,7 +2,7 @@ name: Viblo Telegram Bot
 
 on:
   schedule:
-    - cron: "0 * * * *"  # every hour at minute 0 (UTC)
+    - cron: "17 * * * *"  # hourly at :17 UTC — off-peak minute to reduce GitHub cron queue delay
   workflow_dispatch:
     inputs:
       max_posts:
